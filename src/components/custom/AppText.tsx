@@ -6,5 +6,5 @@ export default function AppText(props: TextProps) {
         <Text {...props} style={[{ fontFamily: 'CenturyGothic' }, props.style]}>
             {props.children}
         </Text>
-    );
+    );  
 }
