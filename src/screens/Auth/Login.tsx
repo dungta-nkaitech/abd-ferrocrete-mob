@@ -5,7 +5,6 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -24,6 +23,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
     const handleLogin = () => {
         // TODO: gọi API login sau
+        navigation?.navigate('ForemanMenu');
     };
 
     const handleForgotPassword = () => {

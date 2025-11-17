@@ -43,6 +43,7 @@ const ResetPassword: React.FC<ResetPasswordScreenProps> = ({ navigation }) => {
                             style={styles.logo}
                             resizeMode="center"
                         />
+
                     </View>
 
                     {/* TITLE + SUBTITLE */}

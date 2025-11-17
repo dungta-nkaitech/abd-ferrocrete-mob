@@ -12,6 +12,7 @@ import Signup from './src/screens/Auth/Signup';
 import ResetPassword from './src/screens/Auth/ResetPassword';
 import NewPassword from './src/screens/Auth/NewPassword';
 import NewPasswordSuccess from './src/screens/Auth/NewPasswordSuccess';
+import ForemanMenu from './src/screens/Foreman/ForemanMenu';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -54,8 +55,9 @@ export default function App() {
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
                 <Stack.Screen name="NewPassword" component={NewPassword} />
                 <Stack.Screen name="NewPasswordSuccess" component={NewPasswordSuccess} />
+
                 {/* Sau khi login xong sẽ vào AppDrawer */}
-                <Stack.Screen name="MainApp" component={AppDrawer} />
+                <Stack.Screen name="ForemanMenu" component={ForemanMenu} />
             </Stack.Navigator>
         </NavigationContainer>
     );

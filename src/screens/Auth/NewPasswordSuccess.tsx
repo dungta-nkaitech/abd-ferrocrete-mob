@@ -35,7 +35,7 @@ const NewPasswordSuccess: React.FC<NewPasswordSuccessScreenProps> = ({ navigatio
                     {/* TOP: Logo */}
                     <View style={styles.topContainer}>
                         <Image
-                            source={require('../../../assets/FerroCreteBuildersLogo.png')}
+                            source={require('../../../assets/icon.png')}
                             style={styles.logo}
                             resizeMode="center"
                         />
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
     },
     container: {
-        paddingTop: 80,
+        marginTop: 202,
         width: 353,
         alignSelf: 'center',
         gap: 48,
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        width: 220,
-        height: 40,
+        width: 150,
+        height: 150,
     },
     title: {
         fontSize: 32,
