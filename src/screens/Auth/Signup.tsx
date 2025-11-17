@@ -5,33 +5,30 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppText from '../../components/custom/AppText';
-import { Eye } from 'iconsax-react-nativejs';
+import {ArrowDown2, Eye} from 'iconsax-react-nativejs';
 
-interface LoginScreenProps {
+interface SignUpScreenProps {
     navigation?: any;
 }
 
-const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+const Signup: React.FC<SignUpScreenProps> = ({ navigation }) => {
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [religion, setReligion] = useState(''); // tạm thời là text, sau này có thể mở modal chọn
     const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleLogin = () => {
-        // TODO: gọi API login sau
+    const handleCreateAccount = () => {
+        // TODO: gọi API register sau
     };
 
-    const handleForgotPassword = () => {
-        navigation?.navigate('ResetPassword');
-    };
-
-    const handleSignUp = () => {
-        navigation?.navigate('Signup');
+    const handleSignIn = () => {
+        navigation?.navigate('Login');
     };
 
     return (
@@ -44,7 +41,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                 extraScrollHeight={24}
             >
                 <View style={styles.container}>
-                    {/* Logo */}
+                    {/* TOP: Logo */}
                     <View style={styles.topContainer}>
                         <Image
                             source={require('../../../assets/FerroCreteBuildersLogo.png')}
@@ -53,18 +50,33 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                         />
                     </View>
 
-                    {/* Ferrocrete Builders Title */}
+                    {/* TITLE + SUBTITLE */}
                     <View style={[styles.topContainer, { gap: 12 }]}>
                         <AppText style={styles.title}>
-                            Welcome to{'\n'}Ferrocrete Builders
+                            Get Started With{'\n'}Ferrocrete Builders
                         </AppText>
                         <AppText style={styles.subtitle}>
-                            Ferrocrete Builders is a commercial and structural concrete {'\n'} contracting company composed of builders.
+                            Enter your details below to create your account{'\n'}
+                            and get started.
                         </AppText>
                     </View>
 
-                    {/* MIDDLE: Form */}
+                    {/* FORM */}
                     <View style={styles.formSection}>
+                        {/* Full Name */}
+                        <View style={styles.fieldContainer}>
+                            <AppText style={styles.fieldLabel}>Full Name</AppText>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Enter your full name"
+                                    placeholderTextColor="#AAA8A8"
+                                    value={fullName}
+                                    onChangeText={setFullName}
+                                />
+                            </View>
+                        </View>
+
                         {/* Email */}
                         <View style={styles.fieldContainer}>
                             <AppText style={styles.fieldLabel}>Email</AppText>
@@ -75,10 +87,49 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                                     placeholderTextColor="#AAA8A8"
                                     keyboardType="email-address"
                                     autoCapitalize="none"
+                                    autoCorrect={false}
                                     value={email}
                                     onChangeText={setEmail}
                                 />
                             </View>
+                        </View>
+
+                        {/* Phone Number */}
+                        <View style={styles.fieldContainer}>
+                            <AppText style={styles.fieldLabel}>Phone Number</AppText>
+                            <View style={styles.inputWrapper}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Enter your phone number"
+                                    placeholderTextColor="#AAA8A8"
+                                    keyboardType="phone-pad"
+                                    value={phoneNumber}
+                                    onChangeText={setPhoneNumber}
+                                />
+                            </View>
+                        </View>
+
+                        {/* Religions (fake dropdown) */}
+                        <View style={styles.fieldContainer}>
+                            <AppText style={styles.fieldLabel}>Religions</AppText>
+                            <TouchableOpacity
+                                style={styles.inputWrapper}
+                                activeOpacity={0.8}
+                                onPress={() => {
+                                    // TODO: mở modal chọn religion sau
+                                }}
+                            >
+                                <AppText
+                                    style={[
+                                        styles.input,
+                                        !religion && styles.placeholderText,
+                                    ]}
+                                    numberOfLines={1}
+                                >
+                                    {religion || 'Select your religions'}
+                                </AppText>
+                                <ArrowDown2 size={16} />
+                            </TouchableOpacity>
                         </View>
 
                         {/* Password */}
@@ -88,7 +139,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Enter your password"
-                                    placeholderTextColor="#B0B0B0"
+                                    placeholderTextColor="#AAA8A8"
                                     secureTextEntry={!showPassword}
                                     value={password}
                                     onChangeText={setPassword}
@@ -97,45 +148,41 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                                     onPress={() => setShowPassword(prev => !prev)}
                                     hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                                 >
-                                    <Eye size={16}/>
+                                    <Eye size={16} />
                                 </TouchableOpacity>
                             </View>
-                        </View>
-                        <View style={styles.rememberForgotRow}>
-                            <TouchableOpacity
-                                style={styles.rememberRow}
-                                onPress={() => setRememberMe(prev => !prev)}
-                                activeOpacity={0.8}
-                            >
-                                <View
-                                    style={[
-                                        styles.checkbox,
-                                        rememberMe && styles.checkboxChecked,
-                                    ]}
-                                >
-                                    {rememberMe && <View style={styles.checkboxInner} />}
-                                </View>
-                                <AppText style={styles.rememberText}>Remember me</AppText>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={handleForgotPassword}>
-                                <AppText style={styles.forgotText}>Forgot password</AppText>
-                            </TouchableOpacity>
                         </View>
                     </View>
 
                     {/* BOTTOM: Button + footer */}
                     <View style={styles.bottomSection}>
-                        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-                            <AppText style={[styles.loginButtonText, {fontFamily: 'CenturyGothic-Bold'}]}>Login</AppText>
+                        <TouchableOpacity
+                            style={styles.createButton}
+                            onPress={handleCreateAccount}
+                        >
+                            <AppText
+                                style={[
+                                    styles.createButtonText,
+                                    { fontFamily: 'CenturyGothic-Bold' },
+                                ]}
+                            >
+                                Create Account
+                            </AppText>
                         </TouchableOpacity>
 
                         <View style={styles.footerRow}>
                             <AppText style={styles.footerText}>
-                                Don&apos;t have an account?{' '}
+                                Already have an account?{' '}
                             </AppText>
-                            <TouchableOpacity onPress={handleSignUp}>
-                                <AppText style={[styles.signUpText, {fontFamily: 'CenturyGothic-Bold'}]}>Sign up</AppText>
+                            <TouchableOpacity onPress={handleSignIn}>
+                                <AppText
+                                    style={[
+                                        styles.signInText,
+                                        { fontFamily: 'CenturyGothic-Bold' },
+                                    ]}
+                                >
+                                    Sign in
+                                </AppText>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -184,13 +231,13 @@ const styles = StyleSheet.create({
         lineHeight: 15,
     },
 
-    // MIDDLE (form)
+    // FORM
     formSection: {
         width: 353,
-        gap: 16,        
+        gap: 16,
     },
     fieldContainer: {
-        gap: 10
+        gap: 10,
     },
     fieldLabel: {
         fontSize: 12,
@@ -199,64 +246,27 @@ const styles = StyleSheet.create({
     },
     inputWrapper: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent:'space-between',
         borderWidth: 1,
         borderColor: '#F1F0F0',
         borderRadius: 8,
-        padding: 10,
+        padding: 10
     },
     input: {
         flex: 1,
         fontSize: 12,
+        fontWeight: '400',
         color: '#140001',
-        fontWeight: '400',
     },
-    iconText: {
-        fontSize: 16,
-    },
-    rememberForgotRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    rememberRow: {
-        flexDirection: 'row',
-        gap: 8,
-    },
-    checkbox: {
-        width: 18,
-        height: 18,
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#C4C4C4',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    checkboxChecked: {
-        borderColor: '#E91F27',
-    },
-    checkboxInner: {
-        width: 10,
-        height: 10,
-        borderRadius: 2,
-        backgroundColor: '#E91F27',
-    },
-    rememberText: {
-        fontSize: 14,
-        fontWeight: '400',
-        color: '#968E8F',
-    },
-    forgotText: {
-        fontSize: 14,
-        fontWeight: '400',
-        color: '#007AFC',
+    placeholderText: {
+        color: '#AAA8A8',
     },
 
     // BOTTOM
     bottomSection: {
         gap: 12,
     },
-    loginButton: {
+    createButton: {
         backgroundColor: '#E91F27',
         borderRadius: 8,
         paddingHorizontal: 10,
@@ -264,7 +274,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    loginButtonText: {
+    createButtonText: {
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: '600',
@@ -278,11 +288,11 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         color: '#8D7D7E',
     },
-    signUpText: {
+    signInText: {
         fontSize: 14,
         color: '#E91F27',
         fontWeight: '600',
     },
 });
 
-export default LoginScreen;
+export default Signup;

@@ -8,6 +8,10 @@ import Dashboard from './src/screens/DashboardScreen';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import Login from './src/screens/Auth/Login';
+import Signup from './src/screens/Auth/Signup';
+import ResetPassword from './src/screens/Auth/ResetPassword';
+import NewPassword from './src/screens/Auth/NewPassword';
+import NewPasswordSuccess from './src/screens/Auth/NewPasswordSuccess';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -46,6 +50,10 @@ export default function App() {
             >
                 {/* Màn Login đứng riêng, không có Drawer */}
                 <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Signup" component={Signup} />
+                <Stack.Screen name="ResetPassword" component={ResetPassword} />
+                <Stack.Screen name="NewPassword" component={NewPassword} />
+                <Stack.Screen name="NewPasswordSuccess" component={NewPasswordSuccess} />
                 {/* Sau khi login xong sẽ vào AppDrawer */}
                 <Stack.Screen name="MainApp" component={AppDrawer} />
             </Stack.Navigator>
