@@ -1,5 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Projects from "./Projects/Projects";
+import ProjectsStack from "./Projects/ProjectsStack";
+import SchedulingStack from "./Scheduling/SchedulingStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -15,7 +16,8 @@ export default function ForemanMenu() {
                 drawerStyle: { backgroundColor: '#0f172a' },
             }}
         >
-            <Drawer.Screen name="Projects" component={Projects} />
+            <Drawer.Screen name="ProjectStack" component={ProjectsStack} />
+            <Drawer.Screen name="SchedulingStack" component={SchedulingStack} />
         </Drawer.Navigator>
     );
 }

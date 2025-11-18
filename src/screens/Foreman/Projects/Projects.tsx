@@ -12,6 +12,10 @@ import { SearchNormal1, Filter } from 'iconsax-react-nativejs';
 
 type ProjectStatus = 'in-progress' | 'pending' | 'completed';
 
+interface ProjectScreenProps {
+    navigation?: any;
+}
+
 interface ProjectItem {
     id: string;
     title: string;
@@ -76,7 +80,7 @@ const MOCK_PROJECTS: ProjectItem[] = [
     },
 ];
 
-const ProjectsScreen: React.FC = () => {
+const Projects: React.FC<ProjectScreenProps> = ({ navigation }) => {
     const [search, setSearch] = useState('');
 
     const filteredProjects = useMemo(() => {
@@ -116,6 +120,10 @@ const ProjectsScreen: React.FC = () => {
         );
     };
 
+    const onOpenProjectDetail = () => {
+        navigation.navigate('ProjectDetail');
+    };
+
     return (
         <SafeAreaView style={styles.safeArea} edges={['left','right','bottom']}>
             <View style={styles.container}>
@@ -150,6 +158,7 @@ const ProjectsScreen: React.FC = () => {
                             key={project.id}
                             activeOpacity={0.85}
                             style={styles.card}
+                            onPress={onOpenProjectDetail}
                         >
                             <View style={styles.cardHeader}>
                                 <View style={styles.cardTextGroup}>
@@ -170,7 +179,7 @@ const ProjectsScreen: React.FC = () => {
     );
 };
 
-export default ProjectsScreen;
+export default Projects;
 
 const styles = StyleSheet.create({
     safeArea: {
